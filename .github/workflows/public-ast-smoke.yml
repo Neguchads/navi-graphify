@@ -1,0 +1,32 @@
+name: Public AST smoke
+on:
+  pull_request:
+    branches: [v8]
+    paths: ['integrations/portfolio/**', '.github/workflows/public-ast-smoke.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+jobs:
+  public-ast:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
+        with:
+          python-version: '3.12'
+      - name: Install locked core dependencies
+        run: uv sync --frozen --no-dev
+      - name: Run actual Graphify AST scan of the public profile repository
+        run: |
+          uv run --frozen --no-dev python integrations/portfolio/export_public.py Neguchads --out public-summary.json
+          python3 -c 'import json; d=json.load(open("public-summary.json")); assert d["nodes"]>0 and d["scope"]=="public-code-only"; print("PUBLIC_SUMMARY="+json.dumps(d,separators=(",",":")))'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: public-structural-summary
+          path: public-summary.json
+          if-no-files-found: error
+          retention-days: 14
