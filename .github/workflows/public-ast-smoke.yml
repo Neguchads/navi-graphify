@@ -21,6 +21,8 @@ jobs:
       - name: Install locked core dependencies
         run: uv sync --frozen --no-dev
       - name: Run actual Graphify AST scan of the public profile repository
+        env:
+          NAVI_PUBLIC_METADATA_TOKEN: ${{ github.token }}
         run: |
           uv run --frozen --no-dev python integrations/portfolio/export_public.py Neguchads --out public-summary.json
           python3 -c 'import json; d=json.load(open("public-summary.json")); assert d["nodes"]>0 and d["scope"]=="public-code-only"; print("PUBLIC_SUMMARY="+json.dumps(d,separators=(",",":")))'
