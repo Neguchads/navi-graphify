@@ -120,6 +120,10 @@
         [
           "Neguchads",
           "Neguchads Profile"
+        ],
+        [
+          "navyv-abyss",
+          "Navyv Abyss"
         ]
       ]
     }
@@ -139,6 +143,16 @@
       "source": "Neguchads",
       "target": "navi-graphify",
       "kind": "project-discovery"
+    },
+    {
+      "source": "navyv-abyss",
+      "target": "github-homepage",
+      "kind": "immersive-theme-provider"
+    },
+    {
+      "source": "Neguchads",
+      "target": "navyv-abyss",
+      "kind": "public-experience-publisher"
     }
   ]
 }

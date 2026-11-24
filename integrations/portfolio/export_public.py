@@ -20,10 +20,13 @@ def catalog():
 def public_repo(slug):
     if slug not in {r[0] for s in catalog()["sectors"] for r in s["repos"]}:
         raise ValueError("Repository not approved in public catalog")
-    # Anonymous API request; no local GitHub credentials or authorization header.
-    req = urllib.request.Request(f"https://api.github.com/repos/{OWNER}/{slug}",
-                                 headers={"User-Agent": "NAVI-public-bridge",
-                                          "Accept": "application/vnd.github+json"})
+    # The optional CI token is scoped to the bridge repository and used only
+    # for metadata rate limits. Source cloning and extraction remain anonymous.
+    headers = {"User-Agent": "NAVI-public-bridge", "Accept": "application/vnd.github+json"}
+    token = os.environ.get("NAVI_PUBLIC_METADATA_TOKEN")
+    if token:
+        headers["Authorization"] = "Bearer " + token
+    req = urllib.request.Request(f"https://api.github.com/repos/{OWNER}/{slug}", headers=headers)
     with urllib.request.urlopen(req, timeout=30) as response:
         info = json.load(response)
     if (info.get("private") is not False or info.get("visibility") != "public"
