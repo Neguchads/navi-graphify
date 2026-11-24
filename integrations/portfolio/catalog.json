@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "owner": "Neguchads",
+  "relationship": "curated-membership",
+  "sectors": [
+    {
+      "id": "games",
+      "en": "Game engineering",
+      "pt": "Engenharia de jogos",
+      "desc": [
+        "Static recompilation, native runtimes and preservation.",
+        "Recompilação estática, runtimes nativos e preservação."
+      ],
+      "color": "#00b3ff",
+      "pos": [
+        -3,
+        0,
+        3
+      ],
+      "repos": [
+        [
+          "chad-recomp",
+          "Chad Standard Recomp"
+        ],
+        [
+          "cdos-nintendods-recomp",
+          "Dawn of Sorrow"
+        ],
+        [
+          "ccod-xbox-recomp",
+          "Curse of Darkness"
+        ],
+        [
+          "csotn-saturn-recomp",
+          "Symphony of the Night"
+        ]
+      ]
+    },
+    {
+      "id": "ai",
+      "en": "AI & automation",
+      "pt": "IA e automação",
+      "desc": [
+        "AI-assisted creation and visual workflows.",
+        "Criação assistida por IA e fluxos de trabalho visuais."
+      ],
+      "color": "#63daff",
+      "pos": [
+        3,
+        0,
+        3
+      ],
+      "repos": [
+        [
+          "ScriptForge",
+          "ScriptForge"
+        ],
+        [
+          "comfyui",
+          "PoseClone / ComfyUI"
+        ]
+      ]
+    },
+    {
+      "id": "apps",
+      "en": "Applications",
+      "pt": "Aplicações",
+      "desc": [
+        "Data visualization and web applications.",
+        "Visualização de dados e aplicações web."
+      ],
+      "color": "#818cf8",
+      "pos": [
+        3,
+        0,
+        -3
+      ],
+      "repos": [
+        [
+          "starlight-bi",
+          "Starlight BI"
+        ],
+        [
+          "favorite-manager",
+          "Favorite Manager"
+        ]
+      ]
+    },
+    {
+      "id": "tools",
+      "en": "Developer tools",
+      "pt": "Ferramentas de desenvolvimento",
+      "desc": [
+        "Knowledge graphs, reusable configuration and evidence-driven engineering.",
+        "Grafos de conhecimento, configuração reutilizável e engenharia orientada a evidências."
+      ],
+      "color": "#a9c3d9",
+      "pos": [
+        -3,
+        0,
+        -3
+      ],
+      "repos": [
+        [
+          "spec-to-proof",
+          "Spec-to-Proof"
+        ],
+        [
+          "codex-config-universal",
+          "Codex Universal Config"
+        ],
+        [
+          "github-homepage",
+          "GitHub Homepage"
+        ],
+        [
+          "navi-graphify",
+          "NAVI Graphify"
+        ],
+        [
+          "Neguchads",
+          "Neguchads Profile"
+        ]
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "source": "navi-graphify",
+      "target": "github-homepage",
+      "kind": "catalog-provider"
+    },
+    {
+      "source": "github-homepage",
+      "target": "Neguchads",
+      "kind": "visualization-provider"
+    },
+    {
+      "source": "Neguchads",
+      "target": "navi-graphify",
+      "kind": "project-discovery"
+    }
+  ]
+}

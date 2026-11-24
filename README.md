@@ -93,6 +93,10 @@ Graphify release that produced it.
 
 ---
 
+## NAVI portfolio bridge
+
+Public project catalog and local-first Graphify structural summary exporter for the [Neguchads ecosystem](https://github.com/Neguchads). [Integration contract and privacy model](integrations/portfolio/README.md).
+
 ## See it in action
 
 <p align="center">
