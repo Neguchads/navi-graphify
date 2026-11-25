@@ -83,7 +83,7 @@ def main():
     else: raise ValueError("Pagination limit")
     old=json.loads(a.previous.read_text()) if a.previous and a.previous.exists() else {}
     sources=json.loads(a.sources.read_text())
-    if set(sources)!={"navi-graphify","github-homepage","navyv-abyss","Neguchads"} or not all(re.fullmatch(r"[a-f0-9]{40}",v) for v in sources.values()):
+    if set(sources)!={"navi-graphify","github-homepage","navi-abyss","Neguchads"} or not all(re.fullmatch(r"[a-f0-9]{40}",v) for v in sources.values()):
         raise ValueError("Invalid source provenance")
     data=make_snapshot(items,api("/users/"+OWNER),dt.datetime.now(dt.timezone.utc).date().isoformat(),old.get("history",[]),sources,[json.loads(x.read_text()) for x in a.summary])
     a.out.parent.mkdir(parents=True,exist_ok=True)

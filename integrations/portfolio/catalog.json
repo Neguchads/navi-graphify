@@ -122,8 +122,12 @@
           "Neguchads Profile"
         ],
         [
-          "navyv-abyss",
-          "Navyv Abyss"
+          "navi-abyss",
+          "NAVI Abyss"
+        ],
+        [
+          "navi-core",
+          "NAVI Core"
         ]
       ]
     }
@@ -145,14 +149,19 @@
       "kind": "project-discovery"
     },
     {
-      "source": "navyv-abyss",
+      "source": "navi-abyss",
       "target": "github-homepage",
       "kind": "immersive-theme-provider"
     },
     {
       "source": "Neguchads",
-      "target": "navyv-abyss",
+      "target": "navi-abyss",
       "kind": "public-experience-publisher"
+    },
+    {
+      "source": "navi-core",
+      "target": "navi-abyss",
+      "kind": "verification-provider"
     }
   ]
 }
