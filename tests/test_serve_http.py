@@ -582,3 +582,22 @@ def test_ipv6_loopback_bind_still_rejects_foreign_host_header(tmp_path):
     with _client(app) as client:
         resp = client.post("/mcp", headers={**_MCP_HEADERS, "Host": "evil.example:8080"}, json=_INIT_BODY)
         assert resp.status_code == 421
+
+@pytest.mark.parametrize("host", ["0.0.0.0", "::", "", "192.0.2.1", "example.invalid"])
+@pytest.mark.parametrize("key", [None, "", "   "])
+def test_non_loopback_requires_nonblank_key(tmp_path, host, key):
+    with pytest.raises(ValueError, match="requires an API key"):
+        serve_mod._build_http_app(_graph_file(tmp_path), host=host, api_key=key)
+
+@pytest.mark.parametrize("host", ["127.0.0.1", "127.0.0.2", "::1", "localhost"])
+def test_local_bind_does_not_require_key(host):
+    assert serve_mod._http_bind_policy(host, None) == (None, False)
+
+@pytest.mark.parametrize("host", ["0.0.0.0", "::", ""])
+def test_authenticated_wildcard_rejects_unauthenticated_request(tmp_path, host):
+    app = serve_mod._build_http_app(_graph_file(tmp_path), host=host, api_key="test-key", json_response=True)
+    with TestClient(app) as client:
+        response = client.post("/mcp", headers={**_MCP_HEADERS, "Host": "example.invalid"}, json=_INIT_BODY)
+        assert response.status_code == 401
+        response = client.post("/mcp", headers={**_MCP_HEADERS, "Host": "example.invalid", "Authorization": "Bearer test-key"}, json=_INIT_BODY)
+        assert response.status_code == 200

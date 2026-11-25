@@ -118,9 +118,7 @@ jobs:
     # The dev deps include bandit and pip-audit. Run them in CI so a new
     # HIGH-severity finding or vulnerable dependency is caught on the PR that
     # introduces it, rather than at the next manual audit.
-    # Non-blocking for now (continue-on-error) to avoid breaking CI on
-    # pre-existing findings; remove continue-on-error after the initial
-    # cleanup pass.
+    # High and medium findings are blocking after the NAVI security review.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -138,7 +136,6 @@ jobs:
       - name: Block high severity static findings
         run: uv run --frozen bandit -r graphify -lll
       - name: bandit (static security analysis)
-        continue-on-error: true
         run: uv run --frozen bandit -r graphify -ll
 
       - name: pip-audit (dependency vulnerabilities)
