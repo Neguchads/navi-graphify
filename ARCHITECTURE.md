@@ -1,5 +1,7 @@
 # Architecture
 
+This file preserves the inherited Graphify engine architecture. For NAVI-specific layers, ownership and privacy boundaries, see [NAVI Graphify architecture](docs/navi/ARCHITECTURE.md).
+
 graphify is a Claude Code skill backed by a Python library. The skill orchestrates the library; the library can be used standalone.
 
 ## Pipeline

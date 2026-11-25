@@ -1,6 +1,14 @@
-# Security Policy
+# Security Policy — NAVI Graphify
 
-## Supported Versions
+NAVI Graphify is an experimental independent fork. The inherited engine threat model below is reference material, not a security certification of the NAVI integration.
+
+## NAVI-specific reporting and data boundaries
+
+Use [fork security advisories](https://github.com/Neguchads/navi-graphify/security/advisories) for private reporting if enabled. If a private channel is unavailable, request a private channel without disclosing vulnerability details publicly. Upstream-only vulnerabilities may also require coordinated reporting to the original maintainers.
+
+The public portfolio bridge validates catalog membership and public visibility, clones a fresh public checkout with isolated Git configuration, disables semantic extraction and reconstructs numeric-only output. Optional metadata credentials are not forwarded to the extraction subprocess. These are controls, not guarantees against every leak. Never publish raw local graphs, cache, private source paths, agent sessions or unreviewed evidence. Check visibility and provenance again before publication. See [NAVI architecture](docs/navi/ARCHITECTURE.md) and [operations](docs/navi/OPERATIONS.md).
+
+## Inherited engine version policy
 
 | Version | Supported |
 |---------|-----------|
@@ -11,14 +19,14 @@
 
 **Do not open a public GitHub issue for security vulnerabilities.**
 
-Report security issues via GitHub's private vulnerability reporting, or email the maintainer directly. Please include:
+Report security issues via a verified private channel as described above. Please include:
 
 - Description of the vulnerability
 - Steps to reproduce
 - Potential impact
 - Suggested fix (if any)
 
-We will acknowledge receipt as soon as possible and work with you to release a coordinated fix.
+Coordinate disclosure and remediation privately; no response-time commitment is established by this policy.
 
 ## Security Model
 

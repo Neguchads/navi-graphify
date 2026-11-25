@@ -125,6 +125,8 @@ The original engine CI remains authoritative for engine changes. The NAVI pilot 
 
 ## Documentation
 
+**[NAVI documentation hub](docs/navi/README.md)** · [Roadmap](docs/ROADMAP.md) · [Handoff](docs/HANDOFF.md) · [Decisions](docs/navi/DECISIONS.md) · [Operations](docs/navi/OPERATIONS.md)
+
 | Guide | Scope |
 |---|---|
 | [Architecture](ARCHITECTURE.md) / [How it works](docs/how-it-works.md) | Inherited graph engine architecture. |

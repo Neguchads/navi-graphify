@@ -1,32 +1,9 @@
-# Getting help with graphify
+# NAVI Graphify support
 
-Thanks for using graphify. Here is where to go, depending on what you need.
+Start with the [landing page](README.md), [Português brasileiro](README.pt-BR.md) and [NAVI engineering documentation](docs/navi/README.md).
 
-## Questions, ideas, and usage help
+For NAVI integration bugs and requests, search or open an issue in [Neguchads/navi-graphify](https://github.com/Neguchads/navi-graphify/issues). Include the reviewed fork commit, OS, Python version, `graphify --version`, minimal public/synthetic reproduction, expected/actual behavior and sanitized logs. Never include private graph files, raw cache, credentials or proprietary source.
 
-- **Docs:** [docs.graphify.com](https://docs.graphify.com) — guides, command reference, and integrations. Start here.
-- **GitHub Discussions:** [Discussions](https://github.com/Graphify-Labs/graphify/discussions) for longer-form questions, ideas, and show-and-tell.
-- **Discord:** [discord.gg/graphify](https://discord.gg/graphify) for real-time chat with the community and maintainers.
+For general engine behavior, consult the inherited [technical reference](https://github.com/Neguchads/navi-graphify/blob/7225f0ebad7d0e8f6a8e47d004158a64588b41ee/README.md). Report verified upstream-only defects to [Graphify upstream](https://github.com/Graphify-Labs/graphify/issues) when appropriate and permitted.
 
-Please search the docs and existing discussions/issues before posting — your question may already be answered.
-
-## Bug reports
-
-Open a [bug report](https://github.com/Graphify-Labs/graphify/issues/new/choose). To help us reproduce it quickly, include:
-
-- what you expected and what actually happened,
-- the smallest input that reproduces it (a sample file or repo helps a lot),
-- the relevant cache entry from `graphify-out/cache/` for an extraction bug,
-- your OS, Python version, and `graphify --version`.
-
-## Feature requests
-
-Open a [feature request](https://github.com/Graphify-Labs/graphify/issues/new/choose) describing the problem you are trying to solve, not only the solution you have in mind.
-
-## Security vulnerabilities
-
-Do **not** open a public issue. Report privately via the [security policy](https://github.com/Graphify-Labs/graphify/security/policy). See [SECURITY.md](SECURITY.md).
-
-## Contributing
-
-Want to help? See [CONTRIBUTING.md](CONTRIBUTING.md). Worked examples and extraction bug reports are the most useful contributions.
+Do not open public issues for vulnerabilities. Follow [SECURITY.md](SECURITY.md). See [CONTRIBUTING.md](CONTRIBUTING.md) for development and [handoff](docs/HANDOFF.md) for current project context.

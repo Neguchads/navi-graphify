@@ -123,6 +123,8 @@ O CI original permanece como referência para alterações no motor. O piloto NA
 
 ## Documentação
 
+**[Central de documentação NAVI](docs/navi/README.md)** · [Roadmap](docs/ROADMAP.md) · [Handoff](docs/HANDOFF.md) · [Decisões](docs/navi/DECISIONS.md) · [Operações](docs/navi/OPERATIONS.md)
+
 | Guia | Escopo |
 |---|---|
 | [Arquitetura](ARCHITECTURE.md) / [Funcionamento](docs/how-it-works.md) | Motor de grafos herdado. |
