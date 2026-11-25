@@ -3,6 +3,7 @@ on:
   pull_request:
     branches: [v8]
     paths: ['integrations/portfolio/**', '.github/workflows/public-portfolio.yml']
+  workflow_dispatch:
   push:
     branches: [v8]
     paths: ['integrations/portfolio/**', '.github/workflows/public-portfolio.yml']
@@ -17,3 +18,27 @@ jobs:
         with:
           persist-credentials: false
       - run: python3 -m unittest discover -s integrations/portfolio -p 'test_*.py'
+  public-ast:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
+        with:
+          python-version: '3.12'
+          enable-cache: false
+      - run: uv sync --frozen --no-dev
+      - name: Extract anonymous public profile source and verify aggregate
+        env:
+          NAVI_PUBLIC_METADATA_TOKEN: ${{ github.token }}
+        run: |
+          uv run --frozen --no-dev python integrations/portfolio/export_public.py Neguchads --out "$RUNNER_TEMP/public-ast.json"
+          python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); assert d["scope"]=="public-code-only" and d["nodes"]>0 and sum(d["confidence"].values())==d["edges"]' "$RUNNER_TEMP/public-ast.json"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: public-ast-summary
+          path: ${{ runner.temp }}/public-ast.json
+          if-no-files-found: error
+          retention-days: 7

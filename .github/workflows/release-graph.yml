@@ -7,6 +7,8 @@ on:
 
 jobs:
   build-graph:
+    # Keep inherited upstream release automation out of the fork until approved.
+    if: github.repository == 'Graphify-Labs/graphify'
     runs-on: ubuntu-latest
     permissions:
       contents: write  # needed to upload release assets
