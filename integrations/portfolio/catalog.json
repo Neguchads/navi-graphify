@@ -110,8 +110,8 @@
           "Codex Universal Config"
         ],
         [
-          "github-homepage",
-          "GitHub Homepage"
+          "navi-githomepage",
+          "NAVI GitHub Homepage"
         ],
         [
           "navi-graphify",
@@ -135,11 +135,11 @@
   "integrations": [
     {
       "source": "navi-graphify",
-      "target": "github-homepage",
+      "target": "navi-githomepage",
       "kind": "catalog-provider"
     },
     {
-      "source": "github-homepage",
+      "source": "navi-githomepage",
       "target": "Neguchads",
       "kind": "visualization-provider"
     },
@@ -150,7 +150,7 @@
     },
     {
       "source": "navi-abyss",
-      "target": "github-homepage",
+      "target": "navi-githomepage",
       "kind": "immersive-theme-provider"
     },
     {
