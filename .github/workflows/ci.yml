@@ -7,6 +7,9 @@ on:
     branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "main"]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   skillgen-check:
     # Fast lint-style guard: the skill files under graphify/ are generated from
@@ -16,7 +19,7 @@ jobs:
     # enum, the monolith round-trips, and the always-on round-trips.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           # The audit-coverage, monolith-roundtrip, and always-on-roundtrip
           # validators read blobs from origin/v8. A shallow checkout omits that
@@ -25,7 +28,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
         with:
           python-version: "3.12"
 
@@ -53,7 +56,7 @@ jobs:
         python-version: ["3.11", "3.12", "3.13", "3.14"]
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           # test_skillgen.py reads pre-split skill bodies from the immutable
           # baseline commit via `git show`; a shallow checkout omits that history
@@ -61,7 +64,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -93,10 +96,10 @@ jobs:
     # node_modules, as when installed) against the real installed Python CLI.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
         with:
           python-version: "3.12"
 
@@ -120,20 +123,23 @@ jobs:
     # cleanup pass.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
         with:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: uv sync --frozen
+        run: |
+          uv lock --check
+          uv sync --frozen
 
+      - name: Block high severity static findings
+        run: uv run --frozen bandit -r graphify -lll
       - name: bandit (static security analysis)
         continue-on-error: true
         run: uv run --frozen bandit -r graphify -ll
 
       - name: pip-audit (dependency vulnerabilities)
-        continue-on-error: true
         run: uv run --frozen pip-audit --strict

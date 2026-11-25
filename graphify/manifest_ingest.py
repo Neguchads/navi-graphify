@@ -16,7 +16,7 @@ path (never the LLM), so a manifest is extracted exactly once.
 from __future__ import annotations
 
 import re
-import xml.etree.ElementTree as ET
+from defusedxml import ElementTree as ET
 from pathlib import Path
 from typing import Any
 
@@ -289,7 +289,7 @@ def _parse_gomod(text: str) -> dict | None:
 
 
 def _parse_pom(text: str) -> dict | None:
-    root = ET.fromstring(text)
+    root = ET.fromstring(text, forbid_dtd=True, forbid_entities=True, forbid_external=True)
     # XML parsing expands both default and prefixed names independently of
     # quote style/attribute spacing. Unqualify only the root's namespace so
     # the Maven lookups below keep their scope and ignore foreign XML tags.

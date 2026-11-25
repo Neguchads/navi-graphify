@@ -1014,6 +1014,7 @@ name = "graphifyy"
 version = "0.9.118"
 source = { editable = "." }
 dependencies = [
+    { name = "defusedxml" },
     { name = "networkx", version = "3.6.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "networkx", version = "3.7", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.13'" },
@@ -1211,6 +1212,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "defusedxml", specifier = "==0.7.1" },
     { name = "anthropic", marker = "extra == 'all'" },
     { name = "anthropic", marker = "extra == 'anthropic'" },
     { name = "anyio", marker = "extra == 'all'", specifier = ">=4.14.2" },

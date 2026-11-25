@@ -21,6 +21,8 @@ permissions:
 
 jobs:
   publish:
+    # Only the upstream owner may publish the upstream distribution.
+    if: github.repository == 'Graphify-Labs/graphify'
     name: Build and publish graphifyy
     runs-on: ubuntu-latest
     environment:
