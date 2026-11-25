@@ -14,4 +14,4 @@ The exporter verifies the selected repo anonymously, clones a fresh public check
 
 The public catalog is versioned separately from Graphify's internal graph schema. No cloud service or API token is required. Run `python -m unittest discover -s integrations/portfolio -p 'test_*.py'` for offline adapter tests. The actual AST scan requires Git, Python and the fork's installed dependencies.
 
-Consumers: [github-homepage](https://github.com/Neguchads/github-homepage) · [Neguchads profile](https://github.com/Neguchads/Neguchads).
+Consumers: [navi-githomepage](https://github.com/Neguchads/navi-githomepage) · [Neguchads profile](https://github.com/Neguchads/Neguchads).
