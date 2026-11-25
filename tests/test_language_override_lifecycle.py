@@ -138,7 +138,7 @@ def drive_watch(root, monkeypatch, actions, *, observed_roots=None):
 
     steps = iter(actions)
 
-    def pump(_seconds):
+    def pump():
         try:
             event = next(steps)()
         except StopIteration:
@@ -161,7 +161,9 @@ def drive_watch(root, monkeypatch, actions, *, observed_roots=None):
     monkeypatch.setattr(observers, "Observer", Observer)
     monkeypatch.setattr(polling, "PollingObserver", Observer)
     monkeypatch.setattr(watch_mod, "_rebuild_code", rebuild)
-    monkeypatch.setattr(watch_mod.time, "sleep", pump)
+    # Patch only the dispatch wait; other threads and extraction internals
+    # must retain real time.sleep (including multiprocessing/lock waits).
+    monkeypatch.setattr(watch_mod, "_wait_for_watch_events", pump)
     watch_mod.watch(root, debounce=0)
 
 
