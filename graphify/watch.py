@@ -3767,6 +3767,11 @@ def _rebuild_timeout():
             watchdog.cancel()
 
 
+def _wait_for_watch_events() -> None:
+    """Wait for the dispatch loop without replacing the process-wide clock."""
+    time.sleep(0.5)
+
+
 def watch(watch_path: Path, debounce: float = 3.0) -> None:
     """
     Watch watch_path for new or modified files and auto-update the graph.
@@ -3981,7 +3986,7 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
 
     try:
         while True:
-            time.sleep(0.5)
+            _wait_for_watch_events()
             if pending and (time.monotonic() - last_trigger) >= debounce:
                 pending = False
                 batch = list(changed)
