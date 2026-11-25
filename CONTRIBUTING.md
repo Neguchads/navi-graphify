@@ -1,6 +1,10 @@
-# Contributing to Graphify
+# Contributing to NAVI Graphify
 
 Graphify is a graph-building system whose correctness depends on preserving provenance, deterministic extraction, and safe incremental updates. A contribution is not complete because the new code works on the happy path; it is complete when the relevant invariant is explicit, tested, and preserved across rebuilds.
+
+## NAVI integration contributions
+
+Use the [NAVI project documentation](docs/navi/README.md), [roadmap](docs/ROADMAP.md) and [handoff](docs/HANDOFF.md). Branch from the reviewed **fork** `v8` for NAVI changes; use upstream only as a reference or when explicitly preparing an upstream contribution. Do not push directly to `v8`. Keep the local/public data boundary intact. Run `python -m unittest discover -s integrations/portfolio -p "test_*.py"` for bridge changes in addition to applicable engine checks. See [SUPPORT.md](SUPPORT.md) for fork issues. No upstream release or package publication is authorized.
 
 ## Before You Start
 - Read [ARCHITECTURE.md](ARCHITECTURE.md)
@@ -36,11 +40,11 @@ Graphify is a graph-building system whose correctness depends on preserving prov
 
 ```bash
 # Fork and clone the repository
-git clone https://github.com/<your-username>/graphify.git
-cd graphify
+git clone https://github.com/Neguchads/navi-graphify.git
+cd navi-graphify
 git remote add upstream https://github.com/Graphify-Labs/graphify.git
 git fetch upstream
-git checkout -b my-feature-branch upstream/v8  # Always branch off upstream v8, never commit directly to v8
+git checkout -b my-feature-branch origin/v8  # NAVI changes branch from the reviewed fork
 
 # Set up the environment (--all-extras installs the optional grammars and SDKs,
 # matching CI; without it the tests that need them are skipped)
@@ -128,7 +132,7 @@ Use a conventional-commit prefix (e.g., `fix:`, `feat:`, `docs:`, `fix(extract):
 ## Working with AI Coding Agents
 AI assistants are welcome, but every rule in this guide applies to the code they write, and you remain the author of the PR.
 - Point your agent at this file and [ARCHITECTURE.md](ARCHITECTURE.md) before it changes anything.
-- Branch off `upstream/v8`, keep the PR to one concern, and never let an agent hand-edit generated skill files.
+- Branch off reviewed fork `origin/v8` for NAVI changes, keep the PR to one concern, and never let an agent hand-edit generated skill files.
 - For bug fixes, confirm the regression test fails without the fix, not only that it passes with it.
 - Run the checks yourself before opening the PR: `uv run pytest tests`, `uv run ruff check .`, `uv run pyright`.
 - Disclose material AI help with a `Co-Authored-By:` trailer, as described under [Commit Messages](#commit-messages).
@@ -136,7 +140,7 @@ AI assistants are welcome, but every rule in this guide applies to the code they
 
 ## Issue Reports
 ### Bugs
-Include exact version/commit, environment, minimal reproduction, expected vs actual, logs, graph/cache artifacts where relevant, and whether a clean checkout reproduced it.
+Include exact version/commit, environment, minimal reproduction, expected vs actual, sanitized logs and public/synthetic reproductions; never attach private graph/cache artifacts, and whether a clean checkout reproduced it.
 
 ### Feature Requests
 Focus on the problem first, proposed behavior, alternatives, and compatibility considerations.
@@ -149,9 +153,8 @@ Focus on the problem first, proposed behavior, alternatives, and compatibility c
 - **What should not be committed**: Local cache (`.graphify_cached.json`), generated node artifacts outside of the expected outputs.
 
 ## Getting Help
-- **Discord**: Join the [Graphify Discord](https://discord.gg/graphify) for questions and discussion.
-- **Issues**: Search [existing issues](https://github.com/Graphify-Labs/graphify/issues) before opening a new one.
-- **Discussions**: Use GitHub issues for bugs and feature requests, Discord for open-ended questions.
+- **NAVI issues**: Search [existing fork issues](https://github.com/Neguchads/navi-graphify/issues).
+- **Engine reference**: See [SUPPORT.md](SUPPORT.md) for when to report an upstream-only defect.
 
 ## Further Reading
 - [README.md](README.md)
