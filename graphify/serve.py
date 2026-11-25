@@ -3678,6 +3678,22 @@ class _ApiKeyMiddleware:
         await self.app(scope, receive, send)
 
 
+def _http_bind_policy(host: str, api_key: str | None) -> tuple[str | None, bool]:
+    """Fail closed for non-loopback HTTP binds; no DNS lookup or implicit trust."""
+    import ipaddress
+
+    key = (api_key or "").strip() or None
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        address = None
+    loopback = host.lower() == "localhost" or (address is not None and address.is_loopback)
+    wildcard = not host or (address is not None and address.is_unspecified)
+    if not loopback and not key:
+        raise ValueError("Non-loopback HTTP binding requires an API key (GRAPHIFY_API_KEY)")
+    return key, wildcard
+
+
 def _build_http_app(
     graph_path: str,
     *,
@@ -3716,7 +3732,7 @@ def _build_http_app(
 
     # A blank key (e.g. --api-key "" or an empty GRAPHIFY_API_KEY) must not be
     # mistaken for "auth on" — normalize it to None so the gate is unambiguous.
-    api_key = (api_key or "").strip() or None
+    api_key, wildcard = _http_bind_policy(host, api_key)
 
     server = _build_server(graph_path)
 
@@ -3724,7 +3740,8 @@ def _build_http_app(
     # are intentionally exposing the server, so accept any Host header; for a
     # loopback/specific bind, restrict Host to that address (with and without
     # the port) plus the localhost aliases.
-    if host in ("0.0.0.0", "::", ""):
+    if wildcard:
+        # Authenticated wildcard exposure is explicit; use TLS at the proxy.
         security = TransportSecuritySettings(enable_dns_rebinding_protection=False)
     else:
         # An IPv6 literal appears bracketed in the Host header ("[::1]:8080").
@@ -3781,8 +3798,9 @@ def serve_http(
 
     ``api_key`` (or the ``GRAPHIFY_API_KEY`` env var) enables a simple header
     check (``Authorization: Bearer <key>`` or ``X-API-Key: <key>``). OAuth is a
-    deliberate follow-up. Binding ``0.0.0.0`` exposes the server beyond
-    localhost — set an api_key when you do.
+    deliberate follow-up. Non-loopback binding requires a nonblank API key.
+    For remote access use a trusted TLS reverse proxy; HTTP itself is plaintext.
+    Authenticated clients are trusted with the server account's graph access.
     """
     graph_path = graph_path or _default_graph_json()
     try:
@@ -3793,7 +3811,7 @@ def serve_http(
             'Run: pip install "graphifyy[mcp]"'
         ) from e
 
-    api_key = (api_key or "").strip() or None
+    api_key, _ = _http_bind_policy(host, api_key)
 
     app = _build_http_app(
         graph_path,
@@ -3811,12 +3829,6 @@ def serve_http(
         f"graphify MCP server (streamable-http) on http://{host}:{port}{path} - {auth_note}",
         file=sys.stderr,
     )
-    if host in ("0.0.0.0", "::", "") and not api_key:
-        print(
-            f"WARNING: binding {host or '0.0.0.0'} with no api-key exposes the graph "
-            "unauthenticated on the network. Set --api-key (or GRAPHIFY_API_KEY).",
-            file=sys.stderr,
-        )
     uvicorn.run(app, host=host, port=port)
 
 
@@ -3852,7 +3864,7 @@ def _main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--api-key",
         default=os.environ.get("GRAPHIFY_API_KEY"),
-        help="Require this key on the HTTP transport (env: GRAPHIFY_API_KEY)",
+        help="HTTP API key (env: GRAPHIFY_API_KEY); mandatory for non-loopback binds",
     )
     parser.add_argument("--path", default="/mcp", help="HTTP mount path (default: /mcp)")
     parser.add_argument(
