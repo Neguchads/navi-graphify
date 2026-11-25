@@ -1,0 +1,15 @@
+schema_version = 1
+[project]
+name = "navi-graphify"
+visibility = "public"
+maturity = "experimental"
+profile = "python-tooling"
+[verification]
+require_real_tests = true
+timeout_seconds = 900
+test_dir = "integrations/portfolio"
+[knowledge]
+public_export = false
+[agents]
+approval_for_production = true
+parallel_workers = 2
