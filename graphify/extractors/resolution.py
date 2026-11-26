@@ -1,3 +1,5 @@
+# Modified in the NAVI Graphify fork relative to pre-rebrand revision 7225f0e.
+# Original Graphify authorship and applicable license notices are retained; see LICENSE, LICENSE-MIT and NOTICE.
 """resolution — moved verbatim from graphify/extract.py."""
 from __future__ import annotations
 
