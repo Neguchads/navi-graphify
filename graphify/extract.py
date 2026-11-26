@@ -1,3 +1,5 @@
+# Modified in the NAVI Graphify fork relative to pre-rebrand revision 7225f0e.
+# Original Graphify authorship and applicable license notices are retained; see LICENSE, LICENSE-MIT and NOTICE.
 """Deterministic structural extraction from source code using tree-sitter. Outputs nodes+edges dicts."""
 from __future__ import annotations
 
