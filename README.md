@@ -149,3 +149,5 @@ NAVI Graphify is an independent, community-maintained fork of [Graphify](https:/
 ---
 
 <p align="center"><strong>Explore. Build. Verify.</strong><br /><a href="https://github.com/Neguchads">Neguchads</a> · <a href="https://github.com/Neguchads/Neguchads">NAVI-OS</a> · <a href="https://github.com/Neguchads/navi-core">NAVI Core</a></p>
+
+[Open-source credits, provenance and distribution review](CREDITS.md).
