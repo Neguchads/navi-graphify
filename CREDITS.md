@@ -1,6 +1,6 @@
 # Credits and provenance
 
-NAVI Graphify is an independent fork of [Graphify](https://github.com/Graphify-Labs/graphify) by Safi Shamsi and the Graphify contributors. The original engine, package, CLI and upstream work remain attributed to them. Copyright 2026 Safi Shamsi and the Graphify contributors; see [NOTICE](NOTICE), [Apache-2.0](LICENSE) and [historical MIT terms](LICENSE-MIT). The NAVI catalog bridge, branding and integration are maintained by Neguchads and contributors, not Graphify Labs.
+NAVI Graphify is an independent fork of [Graphify](https://github.com/Graphify-Labs/graphify) by Safi Shamsi and the Graphify contributors. The original engine, package, CLI and upstream work remain attributed to them. Copyright 2026 Safi Shamsi and the Graphify contributors; see [NOTICE](NOTICE), [Apache-2.0](LICENSE) and [historical MIT terms](LICENSE-MIT). Copyright (c) 2026 Gustavo (Neguchads) — original NAVI catalog bridge, branding, integration and original modifications, under Apache-2.0 to the extent of the author's rights. Upstream and historical MIT notices remain intact. NAVI-specific work is maintained independently, not by Graphify Labs.
 
 The Apache-2.0 section 4 obligations apply to distributed inherited work: retain applicable notices, supply the license, and place prominent change notices in modified inherited files. A repository-level credit or Git history does not replace those notices. Preserve historical MIT notices where applicable; do not assume all prior contributions have been relicensed.
 
